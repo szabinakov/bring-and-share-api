@@ -49,3 +49,23 @@ exports.updateParticipant = (req, res) => {
         }
     )
 }
+
+exports.deleteParticipant = (req, res) => {
+    const { eventId } = req.params
+    const { participantId } = req.params
+
+    Event.findByPk(eventId).then((foundEvent) => {
+        if(!foundEvent) {
+            res.status(404).json({ error: "Ooops, Event can not be found!"})
+        } else {
+            Participant.destroy({ where: { eventId: eventId, id: participantId}}).then(
+                (data) => 
+                {if(!data) {
+                    res.status(404).json({error: "Ooops, Participant can not be found!"})
+                } else {
+                    res.status(204).json(data)
+                }}
+            )
+        }
+    })
+}
