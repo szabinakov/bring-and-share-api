@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const EventModel = require('./event')
+const ParticipantModel = require('./participant');
+const participant = require('./participant');
 
 const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT } = process.env;
 
@@ -12,10 +14,15 @@ const setupDatabase = () => {
     });
   
     const Event = EventModel(connection, Sequelize)
+    const Participant = ParticipantModel(connection, Sequelize)
+
+    Participant.belongsTo(Event, { as: 'event'})
 
     connection.sync({ alter: true });
   
-    return { Event }
+    return { 
+      Event,
+      Participant }
   };
 
 module.exports = setupDatabase()

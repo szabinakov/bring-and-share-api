@@ -5,9 +5,9 @@ exports.create = (req, res) => {
   };
 
 exports.getEvent = (req, res) => {
-    const { id } = req.params
+    const { eventId } = req.params
 
-    Event.findByPk(id).then((event) => {
+    Event.findByPk(eventId).then((event) => {
         if(!event) {
             res.status(404).json({ error: "Ooops, Event doesn't exist!"})
         } else {
@@ -17,9 +17,9 @@ exports.getEvent = (req, res) => {
 }
 
 exports.updateEvent = (req, res) => {
-    const { id } = req.params
+    const { eventId } = req.params
     
-    Event.update(req.body, {where: {id: id}}).then(([eventUpdated]) => {
+    Event.update(req.body, {where: {id: eventId}}).then(([eventUpdated]) => {
         if(!eventUpdated) {
             res.status(404).json({ error: "Ooops, Event doesn't exist!"})
         } else {
@@ -30,9 +30,9 @@ exports.updateEvent = (req, res) => {
 }
 
 exports.deleteEvent = (req, res) => {
-    const { id } = req.params
+    const { eventId } = req.params
 
-    Event.destroy({ where: {id: id}}).then((data) => {
+    Event.destroy({ where: {id: eventId}}).then((data) => {
         if(!data) {
             res.status(404).json({ error: "Ooops, Event doesn't exist!"})
         } else {
