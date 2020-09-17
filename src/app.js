@@ -1,7 +1,7 @@
 const express = require('express')
 const eventController = require('./controllers/event')
 const participantController = require('./controllers/participant')
-const participant = require('./models/participant')
+
 const app = express()
 
 app.use(express.json())
@@ -11,7 +11,7 @@ app.post('/events', eventController.create)
 
 app.get('/events/:eventId', eventController.getEvent )
 
-// app.patch('/events/:eventId', eventController.updateEvent)
+app.patch('/events/:eventId', eventController.updateEvent)
 
 app.delete('/events/:eventId', eventController.deleteEvent)
 

@@ -92,8 +92,8 @@ describe('/events', () => {
                     expect(updatedEvent.eventHost).to.equal('Thomas')
                     
                     })
-                    done() 
                 }) 
+                done() 
             })
 
             it('updates the event name by ID', (done) => {
@@ -105,9 +105,9 @@ describe('/events', () => {
                     expect(res.status).to.equal(201)
                     Event.findByPk(event.id, { raw: true }).then((updatedEvent) => {
                         expect(updatedEvent.eventName).to.equal('Hen Party')
-                        done() 
                         }) 
-                    })  
+                    }) 
+                    done()  
                 })
             
             it('updates the event date by ID', (done) => {
