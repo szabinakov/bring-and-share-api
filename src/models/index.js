@@ -3,7 +3,7 @@ const EventModel = require('./event')
 const ParticipantModel = require('./participant');
 
 
-const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT } = process.env;
+const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, CLEARDB_DATABASE_URL } = process.env;
 
 const setupDatabase = () => {
   const sequelize = CLEARDB_DATABASE_URL ? 
