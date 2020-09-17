@@ -2,8 +2,10 @@ const express = require("express");
 const eventController = require("./controllers/event");
 const participantController = require("./controllers/participant");
 
-
+const cors = require("cors");
 const app = express();
+
+app.use(cors());
 
 app.use(express.json())
 

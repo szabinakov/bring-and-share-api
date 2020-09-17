@@ -1,5 +1,6 @@
 const { Event } = require('../models')
 
+
 exports.create = (req, res) => {
     Event.create(req.body).then((user) => res.status(201).json(user));
   };
