@@ -15,8 +15,8 @@ const setupDatabase = () => {
       logging: false,
     });
   
-    const Event = EventModel(connection, Sequelize)
-    const Participant = ParticipantModel(connection, Sequelize)
+    const Event = EventModel(sequelize, Sequelize)
+    const Participant = ParticipantModel(sequelize, Sequelize)
 
     Participant.belongsTo(Event, { as: 'event'})
 
