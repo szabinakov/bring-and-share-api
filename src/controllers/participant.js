@@ -1,5 +1,4 @@
 const { Participant, Event } = require("../models")
-const participant = require("../models/participant")
 
 exports.createParticipant = (req, res) => {
     const { eventId } = req.params

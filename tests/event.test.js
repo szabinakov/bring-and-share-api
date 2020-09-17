@@ -3,7 +3,7 @@ const { expect } = require('chai');
 const request = require('supertest')
 const { Event } = require('../src/models')
 const app = require('../src/app');
-const event = require('../src/models/event');
+
 
 
 describe('/events', () => {
