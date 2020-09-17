@@ -5,7 +5,7 @@ const participantController = require("./controllers/participant");
 
 const app = express();
 
-
+app.use(express.json())
 
 //EVENT
 app.post("/events", eventController.create);
