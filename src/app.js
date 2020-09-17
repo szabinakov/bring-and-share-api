@@ -10,6 +10,7 @@ app.use(express.json())
 app.post('/events', eventController.create)
 
 app.get('/events/:eventId', eventController.getEvent )
+app.get('/events', eventController.getAllEvents)
 
 app.patch('/events/:eventId', eventController.updateEvent)
 

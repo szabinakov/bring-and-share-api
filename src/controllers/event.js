@@ -16,6 +16,13 @@ exports.getEvent = (req, res) => {
     })
 }
 
+exports.getAllEvents = (req, res) => {
+    Event.findAll().then((events) => {
+        res.status(200).json(events)
+    })
+}
+
+
 exports.updateEvent = (req, res) => {
     const { eventId } = req.params
     
