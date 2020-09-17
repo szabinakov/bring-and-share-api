@@ -82,19 +82,18 @@ describe('/events', () => {
 
         describe('PATCH /events/ID', () => {
             it('updates the event host by ID', (done) => {
-            const event = events[0];
-            request(app)
-            .patch(`/events/${event.id}`)
-            .send({ eventHost: 'Thomas' })
-            .then((res) => {
-                expect(res.status).to.equal(201)
-                Event.findByPk(event.id, { raw: true }).then((updatedEvent) => {
-                    expect(updatedEvent.eventHost).to.equal('Thomas')
-                    
-                    })
-                }) 
-                done() 
-            })
+                const event = events[0];
+                request(app)
+                .patch(`/events/${event.id}`)
+                .send({ hostName: 'Thomas' })
+                .then((res) => {
+                    expect(res.status).to.equal(201)
+                    Event.findByPk(event.id, { raw: true }).then((updatedEvent) => {
+                        expect(updatedEvent.hostName).to.equal('Thomas')
+                        })
+                        done()
+                    })  
+                })
 
             it('updates the event name by ID', (done) => {
                 const event = events[0];
@@ -105,9 +104,9 @@ describe('/events', () => {
                     expect(res.status).to.equal(201)
                     Event.findByPk(event.id, { raw: true }).then((updatedEvent) => {
                         expect(updatedEvent.eventName).to.equal('Hen Party')
-                        }) 
-                    }) 
-                    done()  
+                        })
+                        done() 
+                    })   
                 })
             
             it('updates the event date by ID', (done) => {
@@ -119,9 +118,9 @@ describe('/events', () => {
                     expect(res.status).to.equal(201)
                     Event.findByPk(event.id, { raw: true }).then((updatedEvent) => {
                         expect(updatedEvent.date).to.equal('Sunday Afternoon')
-                        done() 
                         }) 
-                    })  
+                        done()
+                    }) 
                 })
             
             it('updates the event time by ID', (done) => {
@@ -165,6 +164,7 @@ describe('/events', () => {
                     done()  
                     })  
                 })
+
             it('returns an error message when event can not be find to update', (done) => {
                 request(app)
                 .patch('/events/09090909rt')

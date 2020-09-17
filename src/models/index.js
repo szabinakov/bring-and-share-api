@@ -6,7 +6,9 @@ const ParticipantModel = require('./participant');
 const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT } = process.env;
 
 const setupDatabase = () => {
-    const connection = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  const sequelize = CLEARDB_DATABASE_URL ? 
+    new Sequelize(CLEARDB_DATABASE_URL) :
+    new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
       host: DB_HOST,
       port: DB_PORT,
       dialect: 'mysql',
@@ -19,7 +21,7 @@ const setupDatabase = () => {
     Participant.belongsTo(Event, { as: 'event'})
 
 
-    connection.sync({ alter: true });
+    sequelize.sync({ alter: true });
   
     return { 
       Event,
