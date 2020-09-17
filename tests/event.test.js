@@ -3,6 +3,7 @@ const { expect } = require('chai');
 const request = require('supertest')
 const { Event } = require('../src/models')
 const app = require('../src/app');
+const event = require('../src/models/event');
 
 
 describe('/events', () => {
@@ -78,7 +79,41 @@ describe('/events', () => {
             })
         })
 
-        
+        describe('GET / events', () => {
+            it('gets all events', (done) => {
+                request(app)
+                .get('/events')
+                .then((res) => {
+                    expect(res.status).to.equal(200)
+                    expect(res.body.length).to.equal(3)
+                    res.body.forEach((event) => {
+                        const expected = events.find((e) => e.id === event.id)
+                        expect(event.eventName).to.equal(expected.eventName)
+                        expect(event.hostName).to.equal(expected.hostName)
+                        expect(event.date).to.equal(expected.date)
+                        expect(event.time).to.equal(expected.time)
+                        expect(event.address).to.equal(expected.address)
+                    })
+                    done()
+                })
+            })
+        })
+        describe('GET / events/eventID', () => {
+            it('gets events by eventID', (done) => {
+                const event = events[0]
+                request(app)
+                .get(`/events/${event.id}`)
+                .then((res) => {
+                    expect(res.status).to.equal(201)
+                    expect(res.body.eventName).to.equal(event.eventName)
+                    expect(res.body.hostName).to.equal(event.hostName)
+                    expect(res.body.date).to.equal(event.date)
+                    expect(res.body.time).to.equal(event.time)
+                    expect(res.body.address).to.equal(event.address)
+                    })
+                    done()
+                })
+        })
 
         describe('PATCH /events/ID', () => {
             it('updates the event host by ID', (done) => {
