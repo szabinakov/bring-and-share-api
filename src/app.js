@@ -1,28 +1,41 @@
-const express = require('express')
-const eventController = require('./controllers/event')
-const participantController = require('./controllers/participant')
+const express = require("express");
+const eventController = require("./controllers/event");
+const participantController = require("./controllers/participant");
 
-const app = express()
+const cors = require("cors");
+const app = express();
 
-app.use(express.json())
+app.use(cors());
 
 //EVENT
-app.post('/events', eventController.create)
+app.post("/events", eventController.create);
 
-app.get('/events/:eventId', eventController.getEvent )
-app.get('/events', eventController.getAllEvents)
+app.get("/events/:eventId", eventController.getEvent);
+app.get("/events", eventController.getAllEvents);
 
-app.patch('/events/:eventId', eventController.updateEvent)
+app.patch("/events/:eventId", eventController.updateEvent);
 
-app.delete('/events/:eventId', eventController.deleteEvent)
+app.delete("/events/:eventId", eventController.deleteEvent);
 
 //PARTICIPANT
-app.post('/events/:eventId/participants', participantController.createParticipant)
+app.post(
+  "/events/:eventId/participants",
+  participantController.createParticipant
+);
 
-app.get('/events/:eventId/participants', participantController.getAllParticipant)
+app.get(
+  "/events/:eventId/participants",
+  participantController.getAllParticipant
+);
 
-app.patch('/events/:eventId/participants/:participantId', participantController.updateParticipant)
+app.patch(
+  "/events/:eventId/participants/:participantId",
+  participantController.updateParticipant
+);
 
-app.delete('/events/:eventId/participants/:participantId', participantController.deleteParticipant)
+app.delete(
+  "/events/:eventId/participants/:participantId",
+  participantController.deleteParticipant
+);
 
-module.exports = app
+module.exports = app;
