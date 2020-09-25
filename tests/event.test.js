@@ -28,6 +28,7 @@ describe('/events', () => {
             const response = await request(app).post('/events').send({
                 eventName: "Birthday",
                 hostName: "Szabina",
+                hostEmail: 'email@email.com',
                 date: "Thursday",
                 time: "2pm",
                 address: "Manchester"
@@ -41,6 +42,7 @@ describe('/events', () => {
             })
             await expect(insertedEventRecords.eventName).to.equal("Birthday")
             await expect(insertedEventRecords.hostName).to.equal("Szabina")
+            await expect(insertedEventRecords.hostEmail).to.equal("email@email.com")
             await expect(insertedEventRecords.date).to.equal("Thursday")
             await expect(insertedEventRecords.time).to.equal("2pm")
             await expect(insertedEventRecords.address).to.equal("Manchester")
@@ -55,6 +57,7 @@ describe('/events', () => {
                 Event.create({ 
                     eventName: 'First Birthday', 
                     hostName: 'Szabina',
+                    hostEmail: 'email@email.com',
                     date: 'Thursday',
                     time: '2pm',
                     address: 'Hungary'
@@ -62,6 +65,7 @@ describe('/events', () => {
                 Event.create({ 
                     eventName: 'Second Birthday', 
                     hostName: 'Eve',
+                    hostEmail: 'email@email.com',
                     date: 'Monday',
                     time: '5pm',
                     address: 'London'
@@ -69,6 +73,7 @@ describe('/events', () => {
                 Event.create({ 
                     eventName: 'Third Birthday', 
                     hostName: 'Arianha',
+                    hostEmail: 'email@email.com',
                     date: 'Friday',
                     time: '9pm',
                     address: 'Manchester'
@@ -90,6 +95,7 @@ describe('/events', () => {
                         const expected = events.find((e) => e.id === event.id)
                         expect(event.eventName).to.equal(expected.eventName)
                         expect(event.hostName).to.equal(expected.hostName)
+                        expect(event.hostEmail).to.equal(expected.hostEmail)
                         expect(event.date).to.equal(expected.date)
                         expect(event.time).to.equal(expected.time)
                         expect(event.address).to.equal(expected.address)
@@ -107,6 +113,7 @@ describe('/events', () => {
                     expect(res.status).to.equal(201)
                     expect(res.body.eventName).to.equal(event.eventName)
                     expect(res.body.hostName).to.equal(event.hostName)
+                    expect(event.hostEmail).to.equal(expected.hostEmail)
                     expect(res.body.date).to.equal(event.date)
                     expect(res.body.time).to.equal(event.time)
                     expect(res.body.address).to.equal(event.address)
