@@ -3,7 +3,6 @@ const { expect } = require('chai');
 const request = require('supertest')
 const { Event, Participant } = require('../src/models')
 const app = require('../src/app');
-const { updateParticipant } = require('../src/controllers/participant');
 
 describe('/participants', () => {
     let event;
@@ -39,6 +38,7 @@ describe('/participants', () => {
                 .post(`/events/${event.id}/participants`)
                 .send({
                     name: 'Anna',
+                    email: 'email@test.com',
                     toBring: 'Wine',
                     dislikes: 'Tomatoes',
                     dietInfo: 'None'
@@ -48,6 +48,7 @@ describe('/participants', () => {
 
                     Participant.findByPk(res.body.id, { raw: true}).then((participant) => {
                         expect(participant.name).to.equal('Anna')
+                        expect(participant.email).to.equal('email@test.com')
                         expect(participant.toBring).to.equal('Wine')
                         expect(participant.dislikes).to.equal('Tomatoes')
                         expect(participant.dietInfo).to.equal('None')
@@ -60,17 +61,17 @@ describe('/participants', () => {
     describe('with albums in the database', () => {
         let participants = []
         beforeEach((done) => {
-            Participant.create({ name: 'Szabina', toBring:'Milk', dislikes:'Coke', dietInfo:'None'})
+            Participant.create({ name: 'Szabina', email:'email@test.com', toBring:'Milk', dislikes:'Coke', dietInfo:'None'})
                 .then((participant) => {
                     participant.setEvent(event)
                     participants.push(participant)
                 })
-                .then(() => Participant.create({name: 'Eve', toBring:'Wine', dislikes:'Beer', dietInfo:'Vegan'}))
+                .then(() => Participant.create({name: 'Eve', email:'email@test.com', toBring:'Wine', dislikes:'Beer', dietInfo:'Vegan'}))
                 .then((participant) => {
                     participant.setEvent(event)
                     participants.push(participant)
                 })
-                .then(() => Participant.create({name: 'Arianha', toBring:'Beer', dislikes:'Strawberry', dietInfo:'None'}))
+                .then(() => Participant.create({name: 'Arianha', email:'email@test.com', toBring:'Beer', dislikes:'Strawberry', dietInfo:'None'}))
                 .then((participant) => {
                     participant.setEvent(event)
                     participants.push(participant)
@@ -85,6 +86,7 @@ describe('/participants', () => {
                     .then((res) => {
                         expect(res.status).to.equal(201)
                         expect(res.body[0].name).to.equal('Szabina')
+                        expect(res.body[0].email).to.equal('email@test.com')
                         expect(res.body[0].toBring).to.equal('Milk')
                         expect(res.body[0].dislikes).to.equal('Coke')
                         expect(res.body[0].dietInfo).to.equal('None')
