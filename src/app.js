@@ -26,9 +26,14 @@ app.post(
 );
 
 app.get(
-  "/events/:eventId/participants",
-  participantController.getAllParticipant
+  "/events/:eventId/participants/:participantId",
+  participantController.getParticipant
 );
+// app.get(
+//   "/events/:eventId/participants",
+//   participantController.getAllParticipant
+// );
+
 
 app.patch(
   "/events/:eventId/participants/:participantId",

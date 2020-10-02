@@ -16,6 +16,27 @@ exports.createParticipant = (req, res) => {
     })
 }
 
+exports.getParticipant = (req, res) => {
+    const {eventId} = req.params
+    const {participantId} = req.params
+
+    Event.findByPk( eventId ).then((foundEvent) => {
+        if(!foundEvent) {
+            res.status(404).json({error: "Ooops, Event don't exist!"})
+        } else {
+            Participant.findByPk( participantId ).then((foundParticipant) => {
+                if(!foundParticipant) {
+                    res.status(404).json({error: "Ooops, Participants don't exist!"})
+                } else {
+                    res.status(201).json(foundParticipant)
+                }
+            })
+        }
+    })
+}
+
+
+
 exports.getAllParticipant = (req, res) => {
     const { eventId } = req.params
 
