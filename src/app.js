@@ -29,10 +29,10 @@ app.get(
   "/events/:eventId/participants/:participantId",
   participantController.getParticipant
 );
-// app.get(
-//   "/events/:eventId/participants",
-//   participantController.getAllParticipant
-// );
+app.get(
+  "/events/:eventId/participants",
+  participantController.getAllParticipant
+);
 
 
 app.patch(
